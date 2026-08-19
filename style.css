@@ -1,0 +1,303 @@
+:root {
+                                                                                                                                                                                                                                                /* Color Palette - Midnight Cyber */
+                                                                                                                                                                                                                                                --bg-dark: #05050a;
+                                                                                                                                                                                                                                                --bg-card: #0d0e17;
+                                                                                                                                                                                                                                                --bg-card-hover: #151828;
+                                                                                                                                                                                                                                                --accent-primary: #00f0ff;      /* Cyan Neon */
+                                                                                                                                                                                                                                                --accent-primary-hover: #70f7ff;
+                                                                                                                                                                                                                                                --accent-secondary: #ff007f;    /* Deep Magenta */
+                                                                                                                                                                                                                                                --accent-glow: rgba(0, 240, 255, 0.4);
+                                                                                                                                                                                                                                                --accent-glow-secondary: rgba(255, 0, 127, 0.4);
+                                                                                                                                                                                                                                                --text-main: #e2e8f0;
+                                                                                                                                                                                                                                                --text-muted: #64748b;
+                                                                                                                                                                                                                                                --border-color: rgba(0, 240, 255, 0.15);
+                                                                                                                                                                                                                                                --success: #00ff88;
+                                                                                                                                                                                                                                                --danger: #ff2a6d;
+
+                                                                                                                                                                                                                                                /* Typography */
+                                                                                                                                                                                                                                                --font-family: 'Consolas', 'Fira Code', 'Segoe UI', monospace;
+
+                                                                                                                                                                                                                                                /* Spacing & Layout */
+                                                                                                                                                                                                                                                --radius-sm: 4px;
+                                                                                                                                                                                                                                                --radius-md: 8px;
+                                                                                                                                                                                                                                                --radius-lg: 12px;
+                                                                                                                                                                                                                                                --shadow-subtle: 0 4px 25px rgba(0, 0, 0, 0.8);
+
+                                                                                                                                                                                                                                                /* Animations */
+                                                                                                                                                                                                                                                --transition-fast: 0.12s ease-out;
+                                                                                                                                                                                                                                                --transition-smooth: 0.25s ease-out;
+                                                                                                                                                                                                                                            }
+/* Base Setup */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+img {
+    width: 100px;
+    transition: transform var(--transition-fast);
+}
+
+img:active {
+    transform: scale(0.85) rotate(-2deg);
+}
+
+/* Scanline Effect Overlay for 3 AM Vibe */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 999;
+    background-size: 100% 3px, 6px 100%;
+    pointer-events: none;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image:
+            radial-gradient(circle at 50% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(255, 0, 127, 0.04) 0%, transparent 40%);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+/* Main Container Layout */
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .game-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Score / Resource Display Header */
+.score-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-subtle), 0 0 15px rgba(0, 240, 255, 0.05);
+    position: relative;
+}
+
+.score-title {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.score-value {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+    font-variant-numeric: tabular-nums;
+}
+
+.cps-value {
+    font-size: 0.95rem;
+    color: var(--accent-secondary);
+    text-shadow: 0 0 8px var(--accent-glow-secondary);
+    margin-top: 4px;
+}
+
+/* Main Big Clicker Button */
+.main-click-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    position: relative;
+}
+
+.click-btn {
+    background: #000;
+    border: 2px solid var(--accent-primary);
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 0 20px var(--accent-glow), inset 0 0 15px var(--accent-glow);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: var(--accent-primary);
+    position: relative;
+}
+
+.click-btn:hover {
+    transform: scale(1.04);
+    border-color: var(--accent-primary-hover);
+    box-shadow: 0 0 35px var(--accent-glow), inset 0 0 25px var(--accent-glow);
+}
+
+.click-btn:active {
+    transform: scale(0.93);
+    border-color: var(--accent-secondary);
+    box-shadow: 0 0 20px var(--accent-glow-secondary), inset 0 0 20px var(--accent-glow-secondary);
+}
+
+/* Floating Number Animations */
+.floating-number {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: var(--accent-primary);
+    pointer-events: none;
+    animation: floatUpCyber 0.75s ease-out forwards;
+    text-shadow: 0 0 8px var(--accent-primary);
+    z-index: 100;
+}
+
+@keyframes floatUpCyber {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        opacity: 0.9;
+        color: var(--accent-secondary);
+        text-shadow: 0 0 10px var(--accent-secondary);
+        transform: translateY(-35px) scale(1.15);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-70px) scale(0.8);
+    }
+}
+
+/* Upgrades Section / Shop */
+.upgrades-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: var(--shadow-subtle);
+}
+
+.panel-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: var(--accent-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+/* Upgrade Card Item */
+.upgrade-item {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+}
+
+.upgrade-item:hover:not(.disabled) {
+    background-color: var(--bg-card-hover);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+    transform: translateX(4px);
+}
+
+.upgrade-item.disabled {
+    opacity: 0.35;
+    border-color: rgba(255, 255, 255, 0.05);
+    cursor: not-allowed;
+    filter: grayscale(0.8);
+}
+
+.upgrade-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.upgrade-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.upgrade-cost {
+    font-size: 0.85rem;
+    color: var(--accent-primary);
+}
+
+.upgrade-count {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 0, 127, 0.3);
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+}
+
+/* Progress Bar / Goal Bar */
+.progress-container {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: var(--radius-sm);
+    height: 10px;
+    overflow: hidden;
+    margin-top: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    box-shadow: 0 0 10px var(--accent-primary);
+    width: 0%;
+    transition: width 0.2s ease;
+}
+
+/* Pulsing Cyber Glow Animation */
+@keyframes cyberGlow {
+    0% { box-shadow: 0 0 10px var(--accent-glow); }
+    50% { box-shadow: 0 0 25px var(--accent-glow), 0 0 5px var(--accent-secondary); }
+    100% { box-shadow: 0 0 10px var(--accent-glow); }
+}
+
+.glow-active {
+    animation: cyberGlow 1.8s infinite;
+}
+
+style.css
+Displaying style.css.

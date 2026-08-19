@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3AM CLICKER</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="game-container">
+    <!-- Score & Main Click Area -->
+    <div class="score-card">
+        <div class="score-title">Current Time Output</div>
+        <div class="score-value" id="count">0</div>
+        <div class="cps-value" id="cps-display">0 / sec</div>
+
+        <div class="main-click-area">
+            <img id="cookie" draggable="false" src="/imgs/3am.png" alt="3AM CLICKER" style="cursor: pointer;">
+        </div>
+    </div>
+
+    <!-- Upgrades Shop -->
+    <div class="upgrades-panel">
+        <div class="panel-title">Upgrades</div>
+
+        <div class="upgrade-item disabled" id="upgrade-click">
+            <div class="upgrade-info">
+                <span class="upgrade-name">+1 Click Power</span>
+                <span class="upgrade-cost" id="click-cost">Cost: 10</span>
+            </div>
+            <span class="upgrade-count" id="click-power-display">1</span>
+        </div>
+
+        <div class="upgrade-item disabled" id="upgrade-auto">
+            <div class="upgrade-info">
+                <span class="upgrade-name">Buy Auto Clicker</span>
+                <span class="upgrade-cost" id="auto-cost">Cost: 15</span>
+            </div>
+            <span class="upgrade-count" id="auto-count-display">0</span>
+        </div>
+
+        <div class="upgrade-item disabled" id="upgrade-auto-power">
+            <div class="upgrade-info">
+                <span class="upgrade-name">+1 Auto Power</span>
+                <span class="upgrade-cost" id="auto-power-cost">Cost: 50</span>
+            </div>
+            <span class="upgrade-count" id="auto-power-display">1</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
